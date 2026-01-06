@@ -35,15 +35,15 @@ NWS_ZONE = "WIZ061"
 LOCATION_LAT = "43.2722"
 LOCATION_LON = "-89.7208"
 SITE_NAME = "Riverview Adventure Company"
-SITE_URL = "https://sassy-cleans.com"
+SITE_URL = "https://sassy-cleaning.com"
 CONTACT_EMAIL = "riverviewadventureco@gmail.com"
 CONTACT_PHONE = "+1 608 515 3456"
 ADDRESS = "740 Water St., Sauk City, WI 53583"
 
 [[routes]]
-pattern = "sassy-cleans.com/*"
-zone_name = "sassy-cleans.com"
+pattern = "sassy-cleaning.com/*"
+zone_name = "sassy-cleaning.com"
 
 [[routes]]
-pattern = "www.sassy-cleans.com/*"
-zone_name = "sassy-cleans.com"
+pattern = "www.sassy-cleaning.com/*"
+zone_name = "sassy-cleaning.com"
