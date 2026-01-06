@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content - Admin Dashboard</title>
+    <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <nav class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="/images/logo.png" alt="Riverview Adventure" width="40" height="40">
+                <span>Admin</span>
+            </div>
+            <ul class="admin-nav">
+                <li><a href="/admin/">Dashboard</a></li>
+                <li><a href="/admin/services.html">Services</a></li>
+                <li><a href="/admin/content.html" class="active">Content</a></li>
+                <li><a href="/admin/analytics.html">Analytics</a></li>
+                <li><a href="/admin/settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Content Management</h1>
+                <button id="logout-btn" class="btn btn--outline">Logout</button>
+            </header>
+            <div class="admin-content">
+                <section class="admin-card">
+                    <h2>Announcements</h2>
+                    <form id="announcement-form">
+                        <div class="form-group">
+                            <label for="announcement-text">Banner Message</label>
+                            <textarea id="announcement-text" rows="3" placeholder="Enter announcement text..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="announcement-active">
+                                Show announcement banner
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn--primary">Update Announcement</button>
+                    </form>
+                </section>
+                <section class="admin-card">
+                    <h2>Hours Override</h2>
+                    <form id="hours-form">
+                        <div class="form-group">
+                            <label for="hours-message">Special Hours Message</label>
+                            <input type="text" id="hours-message" placeholder="e.g., Closed for holiday">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hours-start">Start Date</label>
+                                <input type="date" id="hours-start">
+                            </div>
+                            <div class="form-group">
+                                <label for="hours-end">End Date</label>
+                                <input type="date" id="hours-end">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn--primary">Set Special Hours</button>
+                    </form>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="/admin/admin.js"></script>
+</body>
+</html>

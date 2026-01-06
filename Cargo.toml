@@ -1,0 +1,27 @@
+[package]
+name = "riverview-adventure"
+version = "5.0.0"
+edition = "2021"
+description = "Riverview Adventure Company - Complete Website & Dashboard"
+authors = ["Riverview Adventure Company & Sassy Consulting LLC"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+worker = "0.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde", "wasmbind"] }
+getrandom = { version = "0.2", features = ["js"] }
+console_error_panic_hook = "0.1"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+hmac = "0.12"
+sha1 = "0.10"
+base32 = "0.5"
+
+[profile.release]
+opt-level = "s"
+lto = true

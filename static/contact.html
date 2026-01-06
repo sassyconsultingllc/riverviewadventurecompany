@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Riverview Adventure Company - Sauk City, WI</title>
+    <meta name="description" content="Contact Riverview Adventure Company for kayak, tube, and bike rentals. Located in Sauk City, WI, just 25 minutes from Madison. Call (608) 643-6363.">
+    <meta name="keywords" content="contact Riverview Adventure, Sauk City kayak rental phone, Wisconsin River outfitter contact">
+    <link rel="canonical" href="https://riverviewadventurecompany.com/contact">
+    
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header__inner">
+                <a href="/" class="header__logo" aria-label="Riverview Adventure Company - Home">
+                    <img src="/images/logo.png" alt="Riverview Adventure Company Logo" width="60" height="60">
+                    <span class="header__logo-text">Riverview Adventure</span>
+                </a>
+                <nav class="nav" role="navigation" aria-label="Main navigation">
+                    <a href="/" class="nav__link">Home</a>
+                    <a href="/services" class="nav__link">Services</a>
+                    <a href="/ebikes" class="nav__link">E-Bikes</a>
+                    <a href="/conditions" class="nav__link">River Conditions</a>
+                    <a href="/about" class="nav__link">About</a>
+                    <a href="/contact" class="nav__link nav__link--active" aria-current="page">Contact</a>
+                </nav>
+                <div class="header__actions">
+                    <a href="tel:+16086436363" class="header__phone" aria-label="Call us">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                        <span>(608) 643-6363</span>
+                    </a>
+                    <a href="/book" class="btn btn--primary btn--sm">Book Now</a>
+                    <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Nav -->
+    <nav id="mobile-nav" class="mobile-nav" role="navigation" aria-label="Mobile navigation" aria-hidden="true">
+        <div class="mobile-nav__header">
+            <a href="/" class="header__logo"><img src="/images/logo.png" alt="Riverview Adventure Company" width="50" height="50"></a>
+            <button type="button" class="mobile-nav__close" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="mobile-nav__body">
+            <a href="/" class="mobile-nav__link">Home</a>
+            <a href="/services" class="mobile-nav__link">Services</a>
+            <a href="/ebikes" class="mobile-nav__link">E-Bikes</a>
+            <a href="/conditions" class="mobile-nav__link">River Conditions</a>
+            <a href="/about" class="mobile-nav__link">About</a>
+            <a href="/contact" class="mobile-nav__link">Contact</a>
+        </div>
+        <div class="mobile-nav__footer">
+            <a href="/book" class="btn btn--primary btn--full btn--lg">Book Your Adventure</a>
+        </div>
+    </nav>
+    
+    <main id="main-content" role="main">
+        <!-- Page Hero -->
+        <section class="page-hero page-hero--short" aria-labelledby="page-title">
+            <div class="page-hero__bg" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);"></div>
+            <div class="page-hero__content">
+                <h1 id="page-title" class="page-hero__title">Contact Us</h1>
+                <p class="page-hero__subtitle">We'd love to hear from you</p>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section class="section" aria-labelledby="contact-title">
+            <div class="container">
+                <div class="contact-grid">
+                    <!-- Contact Form -->
+                    <div class="contact-form-wrapper">
+                        <h2 id="contact-title" class="section__title">Send Us a Message</h2>
+                        <p class="text-muted mb-6">Have a question or want to book a group event? Fill out the form below and we'll get back to you within 24 hours.</p>
+                        
+                        <form id="contact-form" class="contact-form" action="/api/contact" method="POST" novalidate>
+                            <div class="form-group">
+                                <label for="name" class="form-label">Full Name <span class="required" aria-hidden="true">*</span></label>
+                                <input type="text" id="name" name="name" class="form-input" required autocomplete="name" aria-required="true">
+                                <span class="form-error" role="alert" aria-live="polite"></span>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email <span class="required" aria-hidden="true">*</span></label>
+                                    <input type="email" id="email" name="email" class="form-input" required autocomplete="email" aria-required="true">
+                                    <span class="form-error" role="alert" aria-live="polite"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject <span class="required" aria-hidden="true">*</span></label>
+                                <select id="subject" name="subject" class="form-select" required aria-required="true">
+                                    <option value="">Select a topic...</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="booking">Booking Question</option>
+                                    <option value="group">Group/Corporate Event</option>
+                                    <option value="ebike-sales">E-Bike Sales</option>
+                                    <option value="test-ride">Schedule Test Ride</option>
+                                    <option value="service">Bike Service/Repair</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <span class="form-error" role="alert" aria-live="polite"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message <span class="required" aria-hidden="true">*</span></label>
+                                <textarea id="message" name="message" class="form-textarea" rows="5" required aria-required="true" placeholder="How can we help you?"></textarea>
+                                <span class="form-error" role="alert" aria-live="polite"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn--primary btn--lg btn--full" id="submit-btn">
+                                    <span class="btn__text">Send Message</span>
+                                    <span class="btn__loading" aria-hidden="true">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                                    </span>
+                                </button>
+                            </div>
+                            
+                            <div id="form-success" class="form-success" role="status" aria-live="polite" style="display: none;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                <p><strong>Message sent!</strong> We'll get back to you within 24 hours.</p>
+                            </div>
+                            
+                            <div id="form-error" class="form-error-message" role="alert" aria-live="assertive" style="display: none;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                                <p><strong>Something went wrong.</strong> Please try again or call us directly.</p>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <div class="contact-info-card">
+                            <h3 class="contact-info-card__title">Get in Touch</h3>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-info-item__icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                                </div>
+                                <div class="contact-info-item__content">
+                                    <h4>Phone</h4>
+                                    <a href="tel:+16086436363">(608) 643-6363</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-info-item__icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                </div>
+                                <div class="contact-info-item__content">
+                                    <h4>Email</h4>
+                                    <a href="mailto:info@riverviewadventurecompany.com">info@riverviewadventurecompany.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-info-item__icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                </div>
+                                <div class="contact-info-item__content">
+                                    <h4>Address</h4>
+                                    <address style="font-style: normal;">
+                                        109 Phillips Blvd<br>
+                                        Sauk City, WI 53583
+                                    </address>
+                                    <a href="https://maps.google.com/?q=109+Phillips+Blvd+Sauk+City+WI+53583" target="_blank" rel="noopener noreferrer" class="text-link text-sm">Get Directions</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-card">
+                            <h3 class="contact-info-card__title">Hours</h3>
+                            <div class="hours-list">
+                                <div class="hours-item">
+                                    <span class="hours-day">Monday - Friday</span>
+                                    <span class="hours-time">9:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="hours-item">
+                                    <span class="hours-day">Saturday - Sunday</span>
+                                    <span class="hours-time">8:00 AM - 7:00 PM</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-muted mt-4">Summer hours (May - September)</p>
+                        </div>
+                        
+                        <div class="contact-info-card">
+                            <h3 class="contact-info-card__title">Follow Us</h3>
+                            <div class="social-links">
+                                <a href="https://facebook.com/riverviewadventurecompany" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                                </a>
+                                <a href="https://instagram.com/riverviewadventurecompany" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Map Section -->
+        <section class="section section--gray" aria-labelledby="map-title">
+            <div class="container">
+                <h2 id="map-title" class="sr-only">Our Location</h2>
+                <div class="map-embed">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2912.5!2d-89.7208!3d43.2722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDE2JzIwLjAiTiA4OcKwNDMnMTQuOSJX!5e0!3m2!1sen!2sus!4v1234567890" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0; border-radius: 12px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Riverview Adventure Company location on Google Maps">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <div class="footer__logo"><img src="/images/logo.png" alt="Riverview Adventure Company" width="60" height="60"></div>
+                    <p class="footer__tagline">Your gateway to outdoor adventure on the Wisconsin River.</p>
+                </div>
+                <div>
+                    <h3 class="footer__title">Quick Links</h3>
+                    <nav class="footer__links"><a href="/services" class="footer__link">Services</a><a href="/ebikes" class="footer__link">E-Bikes</a><a href="/conditions" class="footer__link">River Conditions</a><a href="/book" class="footer__link">Book Online</a></nav>
+                </div>
+                <div>
+                    <h3 class="footer__title">Contact Us</h3>
+                    <address class="footer__contact" style="font-style: normal;">
+                        <div class="footer__contact-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>109 Phillips Blvd<br>Sauk City, WI 53583</span></div>
+                        <div class="footer__contact-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg><a href="tel:+16086436363">(608) 643-6363</a></div>
+                    </address>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2026 Riverview Adventure Company. All rights reserved.</p>
+                <nav class="footer__legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/js/main.js" defer></script>
+    <script>
+        // Pre-fill subject from URL parameter
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const subject = urlParams.get('subject');
+            if (subject) {
+                const selectEl = document.getElementById('subject');
+                if (selectEl) {
+                    for (let option of selectEl.options) {
+                        if (option.value === subject || option.text.toLowerCase().includes(subject.toLowerCase())) {
+                            option.selected = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

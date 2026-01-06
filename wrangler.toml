@@ -1,0 +1,49 @@
+name = "riverview-adventure"
+main = "build/worker/shim.mjs"
+compatibility_date = "2024-01-01"
+account_id = "d5ccd0d80780f2d0ab72ab12b15244e2"
+
+[build]
+command = "worker-build --release"
+
+[[d1_databases]]
+binding = "DB_WAIVERS"
+database_name = "rac-waivers"
+database_id = "15d17529-5dd2-409e-8c7e-c89a03fd6bd9"
+
+[[d1_databases]]
+binding = "DB_CONTACTS"
+database_name = "rac-contacts"
+database_id = "0193d57e-4a75-48c8-8337-19d702b11cc3"
+
+[[d1_databases]]
+binding = "DB_WEATHER"
+database_name = "rac-weather-history"
+database_id = "95f1d03a-0713-4e7b-b166-3abaea0b5f23"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "9996b7da42d8410dbf16c5358c9834a0"
+
+[[kv_namespaces]]
+binding = "SETTINGS"
+id = "34c7057df96f4a4faac29544928f419e"
+
+[vars]
+USGS_STATION_ID = "05406500"
+NWS_ZONE = "WIZ061"
+LOCATION_LAT = "43.2722"
+LOCATION_LON = "-89.7208"
+SITE_NAME = "Riverview Adventure Company"
+SITE_URL = "https://sassy-cleans.com"
+CONTACT_EMAIL = "riverviewadventureco@gmail.com"
+CONTACT_PHONE = "+1 608 515 3456"
+ADDRESS = "740 Water St., Sauk City, WI 53583"
+
+[[routes]]
+pattern = "sassy-cleans.com/*"
+zone_name = "sassy-cleans.com"
+
+[[routes]]
+pattern = "www.sassy-cleans.com/*"
+zone_name = "sassy-cleans.com"

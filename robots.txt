@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://riverviewadventurecompany.com/sitemap.xml
