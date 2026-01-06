@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>River Arcade | Riverview Adventure Company</title>
+    <meta name="description" content="Play retro-style games while you wait! River Pong and River Chomp - free browser games from Riverview Adventure Company.">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+        :root { --arcade-green: #22c55e; --arcade-blue: #3b82f6; --arcade-gold: #f59e0b; --arcade-dark: #0a0a0a; }
+        .arcade-hero { background: linear-gradient(135deg, #1a1a2e 0%, #0f0f23 100%); padding: 3rem 0; text-align: center; }
+        .arcade-title { font-family: 'Press Start 2P', monospace; font-size: clamp(1.5rem, 5vw, 3rem); background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #9b59b6); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 3s ease infinite; margin-bottom: 0.5rem; }
+        @keyframes rainbow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .arcade-subtitle { font-family: 'Press Start 2P', monospace; font-size: 0.7rem; color: #888; }
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; padding: 2rem; max-width: 1400px; margin: 0 auto; }
+        @media (max-width: 500px) { .games-grid { grid-template-columns: 1fr; padding: 1rem; } }
+        .game-cabinet { background: linear-gradient(180deg, #2a2a3a 0%, #1a1a2a 100%); border-radius: 16px; padding: 1.5rem; border: 3px solid #333; box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); }
+        .game-screen { background: #000; border-radius: 8px; padding: 4px; margin-bottom: 1rem; box-shadow: inset 0 0 20px rgba(0,255,0,0.1); }
+        .game-screen canvas { width: 100%; height: auto; display: block; border-radius: 4px; image-rendering: pixelated; }
+        .game-title { font-family: 'Press Start 2P', monospace; font-size: 1rem; color: var(--arcade-green); text-align: center; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(34,197,94,0.5); }
+        .game-tagline { font-size: 0.75rem; color: #666; text-align: center; margin-bottom: 1rem; }
+        .game-controls { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; }
+        .game-btn { font-family: 'Press Start 2P', monospace; font-size: 0.6rem; padding: 0.75rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .game-btn--start { background: var(--arcade-green); color: #000; }
+        .game-btn--start:hover { background: #16a34a; transform: scale(1.05); }
+        .game-btn--reset { background: #444; color: #fff; }
+        .game-btn--reset:hover { background: #555; }
+        .game-info { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 1rem; }
+        .game-info h4 { font-family: 'Press Start 2P', monospace; font-size: 0.6rem; color: var(--arcade-gold); margin-bottom: 0.5rem; }
+        .game-info p { font-size: 0.75rem; color: #aaa; line-height: 1.6; margin: 0; }
+        .score-display { font-family: 'Press Start 2P', monospace; font-size: 0.8rem; color: var(--arcade-gold); text-align: center; padding: 0.5rem; background: rgba(0,0,0,0.5); border-radius: 4px; margin-bottom: 1rem; }
+        .crt { animation: flicker 0.15s infinite; }
+        @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.98; } }
+    </style>
+</head>
+<body style="background: #0a0a0a;">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header__inner">
+                <a href="/" class="header__logo"><img src="/images/logo.png" alt="RAC" width="60" height="60"><span class="header__logo-text">Riverview Adventure</span></a>
+                <nav class="nav"><a href="/" class="nav__link">Home</a><a href="/services" class="nav__link">Services</a><a href="/conditions" class="nav__link">Conditions</a><a href="/contact" class="nav__link">Contact</a></nav>
+                <div class="header__actions"><a href="/book" class="btn btn--primary btn--sm">Book Now</a></div>
+            </div>
+        </div>
+    </header>
+    
+    <main id="main-content">
+        <section class="arcade-hero">
+            <h1 class="arcade-title">RIVER ARCADE</h1>
+            <p class="arcade-subtitle">FREE PLAY • NO QUARTERS NEEDED</p>
+        </section>
+        
+        <div class="games-grid">
+            <!-- PONG -->
+            <div class="game-cabinet">
+                <h2 class="game-title">🏓 RIVER PONG</h2>
+                <p class="game-tagline">Loser buys the Gatorade!</p>
+                <div class="score-display">P1: <span id="p1-score">0</span> | P2: <span id="p2-score">0</span></div>
+                <div class="game-screen"><canvas id="pong-canvas" class="crt" width="600" height="400"></canvas></div>
+                <div class="game-controls">
+                    <button class="game-btn game-btn--start" onclick="startPong()">START</button>
+                    <button class="game-btn game-btn--reset" onclick="resetPong()">RESET</button>
+                </div>
+                <div class="game-info">
+                    <h4>CONTROLS</h4>
+                    <p>Player 1: W/S keys | Player 2: ↑/↓ arrows<br>First to 5 wins!</p>
+                </div>
+            </div>
+            
+            <!-- PAC-MAN STYLE -->
+            <div class="game-cabinet">
+                <h2 class="game-title">🟡 RIVER CHOMP</h2>
+                <p class="game-tagline">Just like avoiding rocks on the river!</p>
+                <div class="score-display">SCORE: <span id="chomp-score">0</span> | HIGH: <span id="chomp-high">0</span></div>
+                <div class="game-screen"><canvas id="chomp-canvas" class="crt" width="600" height="400"></canvas></div>
+                <div class="game-controls">
+                    <button class="game-btn game-btn--start" onclick="startChomp()">START</button>
+                    <button class="game-btn game-btn--reset" onclick="resetChomp()">RESET</button>
+                </div>
+                <div class="game-info">
+                    <h4>CONTROLS</h4>
+                    <p>Arrow keys or WASD to move<br>Eat all dots, avoid the ghosts!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+    // ===== PONG =====
+    const pongCanvas = document.getElementById('pong-canvas');
+    const pongCtx = pongCanvas.getContext('2d');
+    let pongRunning = false, pongId;
+    const paddle = { w: 10, h: 80, speed: 6 };
+    let p1 = { y: 160, score: 0 }, p2 = { y: 160, score: 0 };
+    let ball = { x: 300, y: 200, vx: 5, vy: 3, r: 8 };
+    const keys = {};
+    
+    document.addEventListener('keydown', e => keys[e.key] = true);
+    document.addEventListener('keyup', e => keys[e.key] = false);
+    
+    function drawPong() {
+        pongCtx.fillStyle = '#001a00';
+        pongCtx.fillRect(0, 0, 600, 400);
+        pongCtx.setLineDash([10, 10]);
+        pongCtx.strokeStyle = '#0f0';
+        pongCtx.beginPath();
+        pongCtx.moveTo(300, 0);
+        pongCtx.lineTo(300, 400);
+        pongCtx.stroke();
+        pongCtx.setLineDash([]);
+        pongCtx.fillStyle = '#0f0';
+        pongCtx.fillRect(20, p1.y, paddle.w, paddle.h);
+        pongCtx.fillRect(570, p2.y, paddle.w, paddle.h);
+        pongCtx.beginPath();
+        pongCtx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+        pongCtx.fill();
+    }
+    
+    function updatePong() {
+        if (keys['w'] && p1.y > 0) p1.y -= paddle.speed;
+        if (keys['s'] && p1.y < 320) p1.y += paddle.speed;
+        if (keys['ArrowUp'] && p2.y > 0) p2.y -= paddle.speed;
+        if (keys['ArrowDown'] && p2.y < 320) p2.y += paddle.speed;
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+        if (ball.y <= ball.r || ball.y >= 400 - ball.r) ball.vy *= -1;
+        if (ball.x <= 30 && ball.y >= p1.y && ball.y <= p1.y + paddle.h) { ball.vx *= -1.1; ball.x = 31; }
+        if (ball.x >= 570 && ball.y >= p2.y && ball.y <= p2.y + paddle.h) { ball.vx *= -1.1; ball.x = 569; }
+        if (ball.x < 0) { p2.score++; resetBall(); }
+        if (ball.x > 600) { p1.score++; resetBall(); }
+        document.getElementById('p1-score').textContent = p1.score;
+        document.getElementById('p2-score').textContent = p2.score;
+        if (p1.score >= 5 || p2.score >= 5) { pongRunning = false; alert((p1.score >= 5 ? 'Player 1' : 'Player 2') + ' wins!'); }
+    }
+    
+    function resetBall() { ball = { x: 300, y: 200, vx: (Math.random() > 0.5 ? 5 : -5), vy: (Math.random() - 0.5) * 6, r: 8 }; }
+    function pongLoop() { if (pongRunning) { updatePong(); drawPong(); pongId = requestAnimationFrame(pongLoop); } }
+    function startPong() { if (!pongRunning) { pongRunning = true; pongLoop(); } }
+    function resetPong() { pongRunning = false; cancelAnimationFrame(pongId); p1 = { y: 160, score: 0 }; p2 = { y: 160, score: 0 }; resetBall(); drawPong(); document.getElementById('p1-score').textContent = '0'; document.getElementById('p2-score').textContent = '0'; }
+    drawPong();
+    
+    // ===== CHOMP (Pac-Man style) =====
+    const chompCanvas = document.getElementById('chomp-canvas');
+    const chompCtx = chompCanvas.getContext('2d');
+    let chompRunning = false, chompId;
+    const TILE = 20;
+    const map = [
+        '##############################',
+        '#..............##............#',
+        '#.####.#####.##.##.#####.####.#',
+        '#.####.#####.##.##.#####.####.#',
+        '#............................#',
+        '#.####.##.########.##.####.#',
+        '#......##....##....##......#',
+        '######.##### ## #####.######',
+        '     #.##          ##.#     ',
+        '     #.## ###  ### ##.#     ',
+        '######.## #      # ##.######',
+        '      .   #      #   .      ',
+        '######.## #      # ##.######',
+        '     #.## ######## ##.#     ',
+        '     #.##          ##.#     ',
+        '######.## ######## ##.######',
+        '#............................#',
+        '#.####.#####.##.#####.####.#',
+        '#...##...........##...#',
+        '###.##.##.########.##.##.###',
+        '#......##....##....##......#',
+        '#.##########.##.##########.#',
+        '#............................#',
+        '##############################'
+    ];
+    let player = { x: 14, y: 17, dir: 0 };
+    let ghosts = [{ x: 14, y: 11, color: '#ff0000' }, { x: 13, y: 11, color: '#00ffff' }, { x: 15, y: 11, color: '#ffb8ff' }, { x: 14, y: 10, color: '#ffb852' }];
+    let dots = [], score = 0, highScore = parseInt(localStorage.getItem('chompHigh') || '0');
+    document.getElementById('chomp-high').textContent = highScore;
+    
+    function initDots() {
+        dots = [];
+        for (let y = 0; y < map.length; y++) for (let x = 0; x < map[y].length; x++) if (map[y][x] === '.') dots.push({ x, y });
+    }
+    initDots();
+    
+    function drawChomp() {
+        chompCtx.fillStyle = '#000033';
+        chompCtx.fillRect(0, 0, 600, 400);
+        for (let y = 0; y < map.length; y++) {
+            for (let x = 0; x < map[y].length; x++) {
+                if (map[y][x] === '#') { chompCtx.fillStyle = '#0000aa'; chompCtx.fillRect(x * TILE, y * TILE, TILE, TILE); }
+            }
+        }
+        chompCtx.fillStyle = '#ffff00';
+        dots.forEach(d => { chompCtx.beginPath(); chompCtx.arc(d.x * TILE + 10, d.y * TILE + 10, 3, 0, Math.PI * 2); chompCtx.fill(); });
+        chompCtx.fillStyle = '#ffff00';
+        chompCtx.beginPath();
+        const px = player.x * TILE + 10, py = player.y * TILE + 10;
+        const mouth = 0.2 * Math.PI;
+        chompCtx.arc(px, py, 9, player.dir + mouth, player.dir + Math.PI * 2 - mouth);
+        chompCtx.lineTo(px, py);
+        chompCtx.fill();
+        ghosts.forEach(g => { chompCtx.fillStyle = g.color; chompCtx.beginPath(); chompCtx.arc(g.x * TILE + 10, g.y * TILE + 8, 8, Math.PI, 0); chompCtx.fillRect(g.x * TILE + 2, g.y * TILE + 8, 16, 10); chompCtx.fill(); });
+    }
+    
+    let nextDir = null;
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft' || e.key === 'a') nextDir = Math.PI;
+        if (e.key === 'ArrowRight' || e.key === 'd') nextDir = 0;
+        if (e.key === 'ArrowUp' || e.key === 'w') nextDir = -Math.PI / 2;
+        if (e.key === 'ArrowDown' || e.key === 's') nextDir = Math.PI / 2;
+    });
+    
+    function canMove(x, y) { return x >= 0 && x < 30 && y >= 0 && y < 24 && map[y] && map[y][x] !== '#'; }
+    
+    function movePlayer() {
+        let nx = player.x, ny = player.y;
+        if (nextDir === 0) nx++;
+        else if (nextDir === Math.PI) nx--;
+        else if (nextDir === -Math.PI / 2) ny--;
+        else if (nextDir === Math.PI / 2) ny++;
+        if (canMove(nx, ny)) { player.x = nx; player.y = ny; player.dir = nextDir; }
+        if (player.x < 0) player.x = 29;
+        if (player.x > 29) player.x = 0;
+        const di = dots.findIndex(d => d.x === player.x && d.y === player.y);
+        if (di !== -1) { dots.splice(di, 1); score += 10; document.getElementById('chomp-score').textContent = score; }
+    }
+    
+    function moveGhosts() {
+        ghosts.forEach(g => {
+            const dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(d => canMove(g.x + d[0], g.y + d[1]));
+            if (dirs.length) { const d = dirs[Math.floor(Math.random() * dirs.length)]; g.x += d[0]; g.y += d[1]; }
+            if (g.x < 0) g.x = 29;
+            if (g.x > 29) g.x = 0;
+        });
+    }
+    
+    function checkCollision() {
+        return ghosts.some(g => g.x === player.x && g.y === player.y);
+    }
+    
+    let tick = 0;
+    function chompLoop() {
+        if (!chompRunning) return;
+        tick++;
+        if (tick % 8 === 0) movePlayer();
+        if (tick % 12 === 0) moveGhosts();
+        drawChomp();
+        if (checkCollision()) {
+            chompRunning = false;
+            if (score > highScore) { highScore = score; localStorage.setItem('chompHigh', highScore); document.getElementById('chomp-high').textContent = highScore; }
+            alert('Game Over! Score: ' + score);
+            return;
+        }
+        if (dots.length === 0) { chompRunning = false; alert('You Win! Score: ' + score); return; }
+        chompId = requestAnimationFrame(chompLoop);
+    }
+    
+    function startChomp() { if (!chompRunning) { chompRunning = true; chompLoop(); } }
+    function resetChomp() { chompRunning = false; cancelAnimationFrame(chompId); player = { x: 14, y: 17, dir: 0 }; ghosts = [{ x: 14, y: 11, color: '#ff0000' }, { x: 13, y: 11, color: '#00ffff' }, { x: 15, y: 11, color: '#ffb8ff' }, { x: 14, y: 10, color: '#ffb852' }]; score = 0; initDots(); document.getElementById('chomp-score').textContent = '0'; tick = 0; drawChomp(); }
+    drawChomp();
+    </script>
+</body>
+</html>
