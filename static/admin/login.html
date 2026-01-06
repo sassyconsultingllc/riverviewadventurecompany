@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Login | Riverview Adventure Company</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/css/admin.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" class="login-logo" aria-hidden="true">
+                    <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 28c4-8 8-12 12-12s8 4 12 12" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 32c2-4 4-6 8-6s6 2 8 6" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="24" cy="16" r="3" fill="currentColor"/>
+                </svg>
+                <h1 class="login-title">Admin Login</h1>
+                <p class="login-subtitle">Riverview Adventure Company</p>
+            </div>
+            
+            <form id="login-form" class="login-form" novalidate>
+                <div id="login-step-1">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" name="username" class="form-input" required autocomplete="username" aria-required="true">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-input" required autocomplete="current-password" aria-required="true">
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--full btn--lg" id="login-btn">
+                        Sign In
+                    </button>
+                </div>
+                
+                <div id="login-step-2" class="hidden">
+                    <div class="form-group">
+                        <label for="totp-code" class="form-label">Authentication Code</label>
+                        <input type="text" id="totp-code" name="totp-code" class="form-input form-input--code" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" autocomplete="one-time-code" placeholder="000000" aria-describedby="totp-help">
+                        <p id="totp-help" class="form-help">Enter the 6-digit code from your authenticator app</p>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--full btn--lg" id="verify-btn">
+                        Verify
+                    </button>
+                    
+                    <button type="button" class="btn btn--ghost btn--full mt-4" id="back-btn">
+                        Back to Login
+                    </button>
+                </div>
+                
+                <div id="login-error" class="form-error hidden" role="alert" aria-live="polite"></div>
+            </form>
+        </div>
+        
+        <p class="login-footer">
+            <a href="/">Return to website</a>
+        </p>
+    </div>
+    
+    <script>
+    (function() {
+        const form = document.getElementById('login-form');
+        const step1 = document.getElementById('login-step-1');
+        const step2 = document.getElementById('login-step-2');
+        const errorEl = document.getElementById('login-error');
+        const backBtn = document.getElementById('back-btn');
+        
+        let pendingToken = null;
+        
+        function showError(message) {
+            errorEl.textContent = message;
+            errorEl.classList.remove('hidden');
+        }
+        
+        function hideError() {
+            errorEl.classList.add('hidden');
+        }
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideError();
+            
+            if (!step2.classList.contains('hidden')) {
+                // TOTP verification
+                const code = document.getElementById('totp-code').value;
+                
+                try {
+                    const response = await fetch('/api/admin/verify-totp', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ code, token: pendingToken })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.valid && data.session_token) {
+                        localStorage.setItem('admin_token', data.session_token);
+                        window.location.href = '/admin';
+                    } else {
+                        showError(data.message || 'Invalid code');
+                    }
+                } catch (err) {
+                    showError('Connection error. Please try again.');
+                }
+            } else {
+                // Password verification
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                try {
+                    const response = await fetch('/api/admin/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success && data.requires_totp) {
+                        pendingToken = data.token;
+                        step1.classList.add('hidden');
+                        step2.classList.remove('hidden');
+                        document.getElementById('totp-code').focus();
+                    } else if (!data.success) {
+                        showError(data.message || 'Invalid credentials');
+                    }
+                } catch (err) {
+                    showError('Connection error. Please try again.');
+                }
+            }
+        });
+        
+        backBtn.addEventListener('click', () => {
+            step2.classList.add('hidden');
+            step1.classList.remove('hidden');
+            pendingToken = null;
+            hideError();
+        });
+        
+        // Check if already logged in
+        const token = localStorage.getItem('admin_token');
+        if (token) {
+            window.location.href = '/admin';
+        }
+    })();
+    </script>
+</body>
+</html>

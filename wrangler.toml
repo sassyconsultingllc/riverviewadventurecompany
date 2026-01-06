@@ -1,0 +1,39 @@
+name = "riverview-adventure"
+main = "build/worker/shim.mjs"
+compatibility_date = "2024-01-01"
+account_id = "e0581207083d15d0bb47a17d17ed0862"
+
+[build]
+command = "worker-build --release"
+
+# KV Namespace for caching API responses
+[[kv_namespaces]]
+binding = "CACHE"
+id = "0acede37bee949e8a70a0277fc1b1468"
+
+# KV Namespace for site settings (admin dashboard)
+[[kv_namespaces]]
+binding = "SETTINGS"
+id = "b94d294d94274f9e8333c353825b387c"
+
+# R2 Bucket for images and assets
+[[r2_buckets]]
+binding = "ASSETS"
+bucket_name = "riverview-assets"
+
+# Environment variables
+[vars]
+USGS_STATION_ID = "05406000"
+NWS_ZONE = "WIZ061"
+LOCATION_LAT = "43.2722"
+LOCATION_LON = "-89.7208"
+SITE_NAME = "Riverview Adventure Company"
+SITE_URL = "https://riverviewadventurecompany.com"
+CONTACT_EMAIL = "riverviewadventureco@gmail.com"
+CONTACT_PHONE = "+1-608-515-3456"
+ADDRESS = "740 Water St., Sauk City, WI 53583"
+BUSINESS_HOURS = "By Appointment Only"
+
+# Secrets (set via wrangler secret put)
+# TOMORROW_IO_API_KEY - Weather API
+# TOTP_SECRET - Admin authentication

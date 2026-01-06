@@ -1,84 +1,237 @@
-# Riverview Adventure Company - Landing Page
+# Riverview Adventure Company Website
 
-Award-winning design inspired by [Inversa](https://inversa.com/) and [Awwwards](https://www.awwwards.com/sites/inversa).
+A modern, high-performance website built with Rust and Cloudflare Workers, featuring real-time river conditions, weather data, and a comprehensive admin dashboard.
 
-## Design Features
+## Features
 
-- **Dark cinematic theme** with subtle color accents
-- **Bold typography** - Inter font, dramatic scale contrasts
-- **Scroll-triggered animations** - Elements reveal on viewport entry
-- **Interactive rental showcase** - Click-to-switch equipment display
-- **Stats bar** - Key metrics in high-contrast cards
-- **Three-column value proposition** - Float/Paddle/Explore
-- **Testimonial section** - Customer quotes with counter
-- **Step process** - Visual how-it-works flow
-- **Grayscale map** - Dark-mode inverted Google Maps
-- **Responsive** - Mobile-first, works on all devices
+### Public Website
+- **Modern, Responsive Design** - Mobile-first design with WCAG 2.1 AA accessibility
+- **Real-time River Conditions** - Live flow data from USGS, weather, moon phases
+- **SEO Optimized** - Schema.org structured data, optimized meta tags, sitemap
+- **Fast Performance** - Edge-delivered via Cloudflare Workers, ~24KB WASM bundle
 
-## Quick Deploy
+### Services Showcased
+- River Tubing on the Wisconsin River
+- Kayak & Canoe Rentals
+- Bike Rentals
+- E-Bike Sales (Velotric)
+- "The Launch Pad" - Complete adventure hub
 
-### Cloudflare Pages
-1. Push to GitHub
-2. Cloudflare Dashboard → Pages → Connect repo
-3. Build: none, Output: `/`
-4. Add custom domain
+### Admin Dashboard
+- TOTP-secured authentication
+- Service availability toggles
+- Pricing management
+- Content management (announcements, hours)
+- Analytics integration (Cloudflare Web Analytics)
 
-### GitHub Pages
-1. Push to `main` branch
-2. Settings → Pages → Deploy from `main`
-3. Add CNAME file
+### Real-time Data
+- **USGS Water Services** - Flow rate (CFS), water temperature, gage height
+- **Tomorrow.io Weather** - Current conditions, forecasts
+- **NWS Alerts** - Weather warnings for Sauk County (WIZ061)
+- **Moon Phase Calculator** - Pure Rust astronomical calculations
+- **Sun Times** - Sunrise/sunset for Sauk City coordinates
 
-## Form Setup
+## Technology Stack
 
-Replace `YOUR-ENDPOINT` in index.html with your Formspree endpoint:
-1. Sign up at [formspree.io](https://formspree.io)
-2. Create new form
-3. Copy endpoint ID
-4. Update the form action URL
+- **Backend**: Rust + Cloudflare Workers (WASM)
+- **Storage**: Cloudflare KV (caching, settings)
+- **Frontend**: Vanilla HTML/CSS/JS (no framework overhead)
+- **APIs**: USGS, Tomorrow.io, NWS
+- **Authentication**: TOTP (RFC 6238)
 
-## Files
+## Project Structure
 
 ```
-riverviewadventurecompany/
-├── index.html      # Main page (384 lines)
-├── styles.css      # Full Inversa-style CSS (966 lines)
-├── sitemap.xml     # SEO sitemap
-├── robots.txt      # Crawler rules
-├── README.md       # This file
-└── assets/
-    ├── building.jpg   # Hero background (drone shot)
-    ├── kayaks.jpg     # River fleet photo
-    ├── bridge.jpg     # Wisconsin River bridge
-    ├── bikes.jpg      # Bike rental icon
-    ├── logo.png       # Company logo
-    ├── sup.png        # SUP silhouette
-    └── launchpad.png  # Launch Pad branding
+riverview-complete/
+├── src/
+│   ├── lib.rs              # Main router and entry point
+│   ├── api/                # External API clients
+│   │   ├── mod.rs
+│   │   ├── usgs.rs         # USGS Water Services
+│   │   └── weather.rs      # Tomorrow.io & NWS
+│   ├── handlers/           # Request handlers
+│   │   ├── mod.rs
+│   │   ├── pages.rs        # HTML page serving
+│   │   ├── static_files.rs # CSS/JS serving
+│   │   ├── flow.rs         # River flow API
+│   │   ├── weather.rs      # Weather API
+│   │   ├── moon.rs         # Moon phase API
+│   │   ├── conditions.rs   # Combined conditions
+│   │   ├── historical.rs   # Historical data
+│   │   ├── services.rs     # Service status
+│   │   ├── store.rs        # E-bike inventory
+│   │   ├── settings.rs     # Public settings
+│   │   ├── admin.rs        # Admin dashboard
+│   │   └── contact.rs      # Contact form
+│   ├── models/             # Data structures
+│   │   ├── mod.rs
+│   │   ├── flow.rs
+│   │   ├── weather.rs
+│   │   ├── moon.rs
+│   │   ├── services.rs
+│   │   ├── store.rs
+│   │   ├── settings.rs
+│   │   └── admin.rs
+│   └── utils/              # Utilities
+│       ├── mod.rs
+│       ├── cache.rs        # KV caching
+│       └── auth.rs         # TOTP authentication
+├── static/
+│   ├── index.html          # Homepage
+│   ├── about.html          # About page
+│   ├── services.html       # Services page
+│   ├── tubing.html         # Tubing details
+│   ├── bikes.html          # Bike rentals
+│   ├── ebikes.html         # E-bike sales
+│   ├── conditions.html     # River conditions dashboard
+│   ├── contact.html        # Contact form
+│   ├── css/
+│   │   ├── main.css        # Main styles
+│   │   ├── dashboard.css   # Dashboard styles
+│   │   └── animations.css  # Animations
+│   ├── js/
+│   │   ├── main.js         # Main JavaScript
+│   │   ├── conditions.js   # Conditions dashboard
+│   │   └── animations.js   # Animation scripts
+│   ├── images/             # Brand images
+│   └── admin/              # Admin dashboard
+│       ├── index.html
+│       ├── login.html
+│       ├── settings.html
+│       ├── services.html
+│       ├── analytics.html
+│       ├── content.html
+│       ├── admin.css
+│       └── admin.js
+├── Cargo.toml              # Rust dependencies
+├── wrangler.toml           # Cloudflare config
+└── README.md               # This file
 ```
 
-## Customization
+## Deployment
 
-### Colors (in styles.css)
-```css
-:root {
-    --bg-dark: #0a0a0a;
-    --accent-river: #3b82f6;    /* Blue */
-    --accent-forest: #22c55e;   /* Green */
-    --accent-warm: #f59e0b;     /* Orange */
-}
+### Prerequisites
+- [Rust](https://rustup.rs/) with `wasm32-unknown-unknown` target
+- [wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
+- [worker-build](https://crates.io/crates/worker-build)
+- Cloudflare account
+
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/sassyconsultingllc/riverview-complete.git
+   cd riverview-complete
+   ```
+
+2. **Configure Cloudflare**
+   
+   Create KV namespaces:
+   ```bash
+   wrangler kv:namespace create "CACHE"
+   wrangler kv:namespace create "SETTINGS"
+   ```
+   
+   Update `wrangler.toml` with the namespace IDs.
+
+3. **Set secrets**
+   ```bash
+   wrangler secret put TOMORROW_IO_API_KEY
+   wrangler secret put TOTP_SECRET
+   ```
+
+4. **Build and deploy**
+   ```bash
+   worker-build --release
+   wrangler deploy
+   ```
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `USGS_STATION_ID` | USGS station for flow data | `05406000` |
+| `LOCATION_LAT` | Latitude for weather | `43.2722` |
+| `LOCATION_LON` | Longitude for weather | `-89.7208` |
+| `NWS_ZONE` | NWS alert zone | `WIZ061` |
+
+### Secrets
+
+| Secret | Description |
+|--------|-------------|
+| `TOMORROW_IO_API_KEY` | Tomorrow.io API key for weather |
+| `TOTP_SECRET` | Base32-encoded TOTP secret for admin |
+
+## API Endpoints
+
+### Public APIs
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/flow` | Current river flow data |
+| `GET /api/weather` | Current weather conditions |
+| `GET /api/alerts` | Active weather alerts |
+| `GET /api/moon` | Moon phase and sun times |
+| `GET /api/conditions` | Combined conditions (all data) |
+| `GET /api/historical/:period` | Historical data (yesterday, week, year) |
+| `GET /api/services` | Service availability |
+| `GET /api/bikes` | E-bike inventory |
+| `GET /api/repairs` | Repair pricing |
+
+### Admin APIs (TOTP Protected)
+
+| Endpoint | Description |
+|----------|-------------|
+| `POST /api/admin/login` | Verify TOTP and get token |
+| `GET /api/admin/settings` | Get all settings |
+| `POST /api/admin/settings` | Update settings |
+| `POST /api/admin/services` | Update service status |
+
+## SEO Features
+
+- **Schema.org Markup**: LocalBusiness, Product, Service, FAQPage
+- **Open Graph Tags**: Full social media preview support
+- **Twitter Cards**: Large image cards for sharing
+- **Sitemap**: Auto-generated XML sitemap
+- **Robots.txt**: Search engine directives
+- **Canonical URLs**: Proper URL canonicalization
+
+## Accessibility (WCAG 2.1 AA)
+
+- Semantic HTML5 structure
+- ARIA landmarks and labels
+- Skip navigation links
+- Keyboard navigation support
+- Color contrast compliance
+- Focus management
+- Screen reader optimized
+
+## Performance
+
+- **Bundle Size**: ~24KB WASM (gzipped)
+- **Edge Delivery**: Cloudflare's global network
+- **Caching**: KV-based response caching (5 min TTL)
+- **No Framework**: Vanilla JS for minimal overhead
+
+## Local Development
+
+```bash
+# Install dependencies
+cargo build
+
+# Run locally with wrangler
+wrangler dev
+
+# Build for production
+worker-build --release
 ```
 
-### Content
-- Edit testimonials in the `.testimonials` section
-- Update rental pricing in the JavaScript `rentalData` object
-- Swap images in `/assets/`
+## License
+
+Copyright 2024-2026 Riverview Adventure Company / Sassy Consulting LLC
 
 ## Contact
 
-Riverview Adventure Company
-740 Water Street, Sauk City, WI 53583
-608-515-3456
-info@riverviewadventurecompany.com
-
----
-
-©2026 Riverview Adventure Company
+- **Website**: https://riverviewadventurecompany.com
+- **Phone**: (608) 643-6363
+- **Address**: 106 Water St, Sauk City, WI 53583
