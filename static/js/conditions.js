@@ -428,7 +428,11 @@
 
         L.marker([43.2722, -89.7208], { icon: launchPadIcon })
             .addTo(map)
+<<<<<<< HEAD
             .bindPopup('<strong>The Launch Pad</strong><br>740 Water St<br>Sauk City, WI 53583');
+=======
+            .bindPopup('<strong>The Launch Pad</strong><br>109 Phillips Blvd<br>Sauk City, WI 53583');
+>>>>>>> 69f4b5dbcdd74d012c2ebfcef975cf9cdc95e2b2
 
         // Add tubing route line
         const tubingRoute = [

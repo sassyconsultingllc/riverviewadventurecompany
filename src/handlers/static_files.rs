@@ -63,6 +63,7 @@ pub async fn serve_admin_js(_req: Request, ctx: RouteContext<()>) -> Result<Resp
     Ok(Response::ok(content)?.with_headers(headers))
 }
 
+<<<<<<< HEAD
 pub async fn serve_image(_req: Request, ctx: RouteContext<()>) -> Result<Response> {
     let file = ctx.param("file").map(|s| s.as_str()).unwrap_or("");
     
@@ -125,6 +126,20 @@ pub async fn serve_favicon(_req: Request, ctx: RouteContext<()>) -> Result<Respo
             }
         }
     }
+=======
+pub async fn serve_image(_req: Request, _ctx: RouteContext<()>) -> Result<Response> {
+    // For images, we'd typically use R2 or external CDN
+    // This is a placeholder - images should be served from R2 bucket
+    Response::error("Images served from CDN", 302)
+}
+
+pub async fn serve_favicon(_req: Request, _ctx: RouteContext<()>) -> Result<Response> {
+    let mut headers = Headers::new();
+    headers.set("Content-Type", "image/x-icon")?;
+    headers.set("Cache-Control", "public, max-age=604800")?;
+    // Return a simple placeholder or redirect to CDN
+    Response::error("Favicon served from CDN", 302)
+>>>>>>> 69f4b5dbcdd74d012c2ebfcef975cf9cdc95e2b2
 }
 
 pub async fn serve_robots(_req: Request, _ctx: RouteContext<()>) -> Result<Response> {
@@ -191,6 +206,7 @@ pub async fn serve_sitemap(_req: Request, _ctx: RouteContext<()>) -> Result<Resp
         <changefreq>hourly</changefreq>
         <priority>0.9</priority>
     </url>
+<<<<<<< HEAD
     <url>
         <loc>https://riverviewadventurecompany.com/book</loc>
         <lastmod>2026-01-04</lastmod>
@@ -215,6 +231,8 @@ pub async fn serve_sitemap(_req: Request, _ctx: RouteContext<()>) -> Result<Resp
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
+=======
+>>>>>>> 69f4b5dbcdd74d012c2ebfcef975cf9cdc95e2b2
 </urlset>"#;
     
     let mut headers = Headers::new();
